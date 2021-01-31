@@ -102,4 +102,15 @@ if (BUILD_QT_UI)
             ${CMAKE_SOURCE_DIR}/python/mmSolver/tools/userprefswindow/ui/pref_layout.ui
             ${CMAKE_SOURCE_DIR}/python/mmSolver/tools/userprefswindow/ui/ui_pref_layout.py
             )
+
+    add_ui_compile("createcontroller"
+            ${CMAKE_SOURCE_DIR}/python/mmSolver/tools/createcontroller/ui/createcontroller_layout.ui
+            ${CMAKE_SOURCE_DIR}/python/mmSolver/tools/createcontroller/ui/ui_createcontroller_layout.py
+            )
+
+    add_ui_compile("removecontroller"
+            ${CMAKE_SOURCE_DIR}/python/mmSolver/tools/removecontroller/ui/removecontroller_layout.ui
+            ${CMAKE_SOURCE_DIR}/python/mmSolver/tools/removecontroller/ui/ui_removecontroller_layout.py
+            )
+
 endif ()

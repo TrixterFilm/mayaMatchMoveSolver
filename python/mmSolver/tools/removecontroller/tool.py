@@ -34,29 +34,20 @@ Usage::
 
 """
 
-
-# Ideas::
-#
-#   - Have a flag to allow maintaining the relative hierarchy of the
-#     input transforms.
-
-
 import maya.cmds
 
 import mmSolver.logger
-import mmSolver.utils.constant as const_utils
+
 import mmSolver.utils.tools as tools_utils
-import mmSolver.tools.createcontroller.constant as const
 import mmSolver.tools.createcontroller.lib as lib
-import mmSolver.tools.removecontroller.tool as tool_remove
 
 
 LOG = mmSolver.logger.get_logger()
 
 
-def create():
+def main():
     """
-    Create a controller for selected nodes.
+    Remove selected controllers and bake data on controlled nodes.
     """
     nodes = maya.cmds.ls(selection=True, long=True) or []
     if len(nodes) == 0:
@@ -64,12 +55,9 @@ def create():
         return
 
     # TODO: Get from the config.
-    node_type = const.CONTROLLER_NODE_TYPE_LOCATOR_VALUE
-    with_zero_node = None
     smart_bake = False
     start_frame = None
     end_frame = None
-    delete_existing_keyframes = False
 
     ctx = tools_utils.tool_context(
         use_undo_chunk=True,
@@ -79,36 +67,19 @@ def create():
         use_dg_evaluation_mode=True,
         disable_viewport=True)
     with ctx:
-        ctrls = lib.create(
+        orig_nodes = lib.remove(
             nodes,
-            node_type=node_type,
-            with_zero_node=with_zero_node,
             smart_bake=smart_bake,
             start_frame=start_frame,
-            end_frame=end_frame,
-            delete_existing_keyframes=delete_existing_keyframes)
-        if len(ctrls) > 0:
-            maya.cmds.select(ctrls, replace=True)
+            end_frame=end_frame)
+        if len(orig_nodes) > 0:
+            maya.cmds.select(orig_nodes, replace=True)
 
     # Trigger Maya to refresh.
     maya.cmds.refresh(currentView=True, force=False)
     return
 
 
-def main():
-    """
-    Create a controller for selected nodes.
-    """
-    return create()
-
-
-def remove():
-    """
-    Remove selected controllers and bake data on controlled nodes.
-    """
-    return tool_remove.main()
-
-
 def open_window():
-    import mmSolver.tools.createcontroller.ui.createcontroller_window as window
+    import mmSolver.tools.removecontroller.ui.removecontroller_window as window
     window.main()

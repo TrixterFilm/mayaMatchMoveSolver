@@ -513,7 +513,12 @@
             "tooltip": "Create Controller for selected nodes.",
             "command": [
                 "import mmSolver.tools.createcontroller.tool;",
-                "mmSolver.tools.createcontroller.tool.create();"
+                "mmSolver.tools.createcontroller.tool.main();"
+            ],
+            "option_box": true,
+            "command_option_box": [
+                "import mmSolver.tools.createcontroller.tool;",
+                "mmSolver.tools.createcontroller.tool.open_window();"
             ]
         },
         "remove_controller": {
@@ -521,8 +526,13 @@
             "name_shelf": "RmCtrl",
             "tooltip": "Remove Controller for selected nodes.",
             "command": [
-                "import mmSolver.tools.createcontroller.tool;",
-                "mmSolver.tools.createcontroller.tool.remove();"
+                "import mmSolver.tools.removecontroller.tool;",
+                "mmSolver.tools.removecontroller.tool.main();"
+            ],
+            "option_box": true,
+            "command_option_box": [
+                "import mmSolver.tools.removecontroller.tool;",
+                "mmSolver.tools.removecontroller.tool.open_window();"
             ]
         },
         "deform_marker": {
